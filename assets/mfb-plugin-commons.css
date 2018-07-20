@@ -1,0 +1,111 @@
+.mfb-config-dialog .el-dialog .el-dialog__body {
+  padding: 0; }
+
+.mfb-config-dialog .mfb-config-section {
+  border-bottom: 1px solid #ccc;
+  padding: 1rem 1rem 0 1rem; }
+  .mfb-config-dialog .mfb-config-section .mfb-config-section-header {
+    position: relative;
+    margin-bottom: 1rem;
+    cursor: pointer; }
+    .mfb-config-dialog .mfb-config-section .mfb-config-section-header .el-icon-arrow-right {
+      margin-right: 0.5rem;
+      -webkit-transition: -webkit-transform .3s;
+      transition: -webkit-transform .3s;
+      transition: transform .3s;
+      transition: transform .3s, -webkit-transform .3s; }
+    .mfb-config-dialog .mfb-config-section .mfb-config-section-header .el-switch {
+      position: absolute;
+      right: 0; }
+  .mfb-config-dialog .mfb-config-section.is-active > .mfb-config-section-header .el-icon-arrow-right {
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg); }
+
+.mfb-config-dialog .el-form-item {
+  margin-bottom: 1rem; }
+
+.mfb-config-dialog .el-form--label-top .el-form-item__label {
+  padding-bottom: 0;
+  margin-bottom: 0.3rem; }
+
+.mfb-config-dialog .mfb-switch-wrapper {
+  margin-bottom: 1rem; }
+  .mfb-config-dialog .mfb-switch-wrapper label:not(.el-switch) {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer; }
+  .mfb-config-dialog .mfb-switch-wrapper .el-switch + label {
+    margin-left: 0.3rem; }
+
+.mfb-config-dialog .el-button--text {
+  padding: 0; }
+
+.mfb-config-dialog .mfb-config-form-key {
+  margin-bottom: 1rem; }
+
+.mfb-config-dialog.dialog-fade-enter .el-switch * {
+  -webkit-transition: unset !important;
+  transition: unset !important; }
+.el-button.mfb-add-option {
+  margin-bottom: 1rem; }
+
+.mfb-options {
+  padding: 0;
+  margin-bottom: 1rem; }
+
+.mfb-option {
+  list-style: none;
+  padding: 0.5rem 0;
+  margin-bottom: -1px;
+  border: 1px solid #ccc;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+  .mfb-option.sortable-ghost {
+    background: #eee; }
+  .mfb-option.sortable-drag {
+    background: #eee;
+    opacity: 0.3 !important; }
+  .mfb-option .mfb-option-handle {
+    width: 2rem;
+    height: 2rem;
+    padding: 0.5rem 0rem 0.5rem 0.8rem;
+    margin-right: 0.2rem;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor: grab; }
+  .mfb-option .el-switch {
+    margin-right: 0.3rem; }
+  .mfb-option .el-input {
+    width: calc(50% - 4.1rem);
+    margin-right: 0.3rem; }
+    @media screen and (min-width: 470px) {
+      .mfb-option .el-input {
+        width: calc(50% - 5.1rem); } }
+  .mfb-option .el-icon-delete {
+    font-size: 0.9rem; }
+
+.dragging .mfb-options-editor .el-switch *, .dragging-ended .mfb-options-editor .el-switch * {
+  -webkit-transition: unset !important;
+  transition: unset !important; }
+
+.dragging {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: -webkit-grabbing;
+  cursor: grabbing; }
+
+.dragging .mfb-config-dialog {
+  pointer-events: none; }
+  .dragging .mfb-config-dialog .mfb-options-editor .mfb-options {
+    pointer-events: auto; }
+    .dragging .mfb-config-dialog .mfb-options-editor .mfb-options .mfb-option * {
+      pointer-events: none; }
+
+/*# sourceMappingURL=mfb-plugin-commons.css.map*/
