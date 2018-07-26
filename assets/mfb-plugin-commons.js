@@ -106,6 +106,15 @@ exports.default = {
       default: false
     }
   },
+  computed: {
+    wrapperClasses: function wrapperClasses() {
+      return {
+        'mfb-config-section': true,
+        'is-active': this.collapsable && this.expanded || this.switchable && this.enabled,
+        'is-collapsed': this.collapsable && !this.expanded || this.switchable && !this.enabled
+      };
+    }
+  },
   data: function data() {
     return {
       enabled: this.value,
@@ -128,7 +137,7 @@ exports.default = {
       }
     }
   },
-  template: '<section :class="{\'mfb-config-section\': true, \'is-active\': this.expanded || this.enabled}">\n               <div class="mfb-config-section-header" v-if="title || $slots.title || collapsable || switchable" @click="handleHeaderClick">\n                 <i v-if="collapsable" class="el-icon-arrow-right"></i><slot name="title">{{title}}</slot>\n                 <el-switch v-if="switchable" :value="enabled" @input="setValue" on-text="" off-text="" />\n               </div>\n               <collapse-transition v-if="switchable || collapsable">\n                 <div class="mfb-config-section-content" v-show="value || expanded">\n                   <slot></slot>\n                 </div>\n               </collapse-transition>\n               <div v-else class="mfb-config-section-content">\n                 <slot></slot>\n               </div>\n             </section>'
+  template: '<section :class="wrapperClasses">\n               <div class="mfb-config-section-header" v-if="title || $slots.title || collapsable || switchable" @click="handleHeaderClick">\n                 <i v-if="collapsable" class="el-icon-arrow-right"></i><slot name="title">{{title}}</slot>\n                 <el-switch v-if="switchable" :value="enabled" @input="setValue" on-text="" off-text="" />\n               </div>\n               <collapse-transition v-if="switchable || collapsable">\n                 <div class="mfb-config-section-content" v-show="value || expanded">\n                   <slot></slot>\n                 </div>\n               </collapse-transition>\n               <div v-else class="mfb-config-section-content">\n                 <slot></slot>\n               </div>\n             </section>'
 };
 module.exports = exports['default'];
 
@@ -160,7 +169,7 @@ exports.default = {
       this.$emit('change', val);
     }
   },
-  template: '\n    <div class="mfb-switch-wrapper">\n      <el-switch v-model="on" on-text="" off-text="" />\n      <label @click="on = !on">{{label}}</label>\n    </div>\n    '
+  template: '\n    <div class="mfb-switch-wrapper el-form-item">\n      <el-switch v-model="on" on-text="" off-text="" />\n      <label @click="on = !on">{{label}}</label>\n    </div>\n    '
 };
 module.exports = exports['default'];
 
@@ -189,23 +198,27 @@ var _register = __webpack_require__(5);
 
 var _register2 = _interopRequireDefault(_register);
 
+var _commonProperties = __webpack_require__(6);
+
+var _commonProperties2 = _interopRequireDefault(_commonProperties);
+
 var _ConfigSection = __webpack_require__(0);
 
 var _ConfigSection2 = _interopRequireDefault(_ConfigSection);
 
-var _CommonConfig = __webpack_require__(6);
+var _CommonConfig = __webpack_require__(7);
 
 var _CommonConfig2 = _interopRequireDefault(_CommonConfig);
 
-var _CommonConfigAdvanced = __webpack_require__(7);
+var _CommonConfigAdvanced = __webpack_require__(8);
 
 var _CommonConfigAdvanced2 = _interopRequireDefault(_CommonConfigAdvanced);
 
-var _OptionsEditor = __webpack_require__(8);
+var _OptionsEditor = __webpack_require__(9);
 
 var _OptionsEditor2 = _interopRequireDefault(_OptionsEditor);
 
-var _CustomOption = __webpack_require__(13);
+var _CustomOption = __webpack_require__(14);
 
 var _CustomOption2 = _interopRequireDefault(_CustomOption);
 
@@ -213,19 +226,20 @@ var _LabeledSwitch = __webpack_require__(1);
 
 var _LabeledSwitch2 = _interopRequireDefault(_LabeledSwitch);
 
-var _persistPreviewData = __webpack_require__(14);
+var _persistPreviewData = __webpack_require__(15);
 
 var _persistPreviewData2 = _interopRequireDefault(_persistPreviewData);
 
-__webpack_require__(16);
-
 __webpack_require__(17);
+
+__webpack_require__(18);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   newFormKey: _formKey2.default,
   registerPlugins: _register2.default,
+  commonProperties: _commonProperties2.default,
   ConfigSection: _ConfigSection2.default,
   CommonConfig: _CommonConfig2.default,
   CommonConfigAdvanced: _CommonConfigAdvanced2.default,
@@ -335,6 +349,30 @@ module.exports = registerPlugins;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = {
+  description: {
+    text: '',
+    enabled: false
+  },
+  labelDisplay: {
+    options: [{ value: 'before', label: Drupal.t('Above') }, { value: 'inline', label: Drupal.t('Inline') }, { value: 'none', label: Drupal.t('None') }],
+    value: 'before'
+  },
+  private: false,
+  wrapperCls: ''
+};
+module.exports = exports['default'];
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
 var _ConfigSection = __webpack_require__(0);
 
@@ -378,12 +416,12 @@ exports.default = {
       }
     }
   },
-  template: '<div class="mfb-common-config">\n      <config-section>\n        <el-form-item :label="text(\'label\')">\n          <el-input v-model="element.label" />\n        </el-form-item>\n        <div v-if="!formKeyEdited" class="mfb-config-form-key">\n          {{text(\'form key\')}}: {{element.formKey}}\n          <el-button type="text" class="mfb-edit-form-key" @click="formKeyEdited = true">{{text(\'edit form key\')}}</el-button>\n        </div>\n        <el-form-item v-else :label="text(\'form key\')">\n          <el-input v-model="element.formKey" />\n        </el-form-item>\n      </config-section>\n      <config-section v-if="typeof element.description !== \'undefined\'" :title="text(\'description (help text)\')" :switchable="true" v-model="element.description.enabled">\n        <el-form-item>\n          <el-input v-model="element.description.text" type="textarea" :rows="2" />\n        </el-form-item>\n      </config-section>\n    </div>'
+  template: '<div class="mfb-common-config">\n      <config-section>\n        <el-form-item :label="text(\'label\')">\n          <el-input v-model="element.label" />\n        </el-form-item>\n        <div v-if="!formKeyEdited" class="mfb-config-form-key el-form-item">\n          {{text(\'form key\')}}: {{element.formKey}}\n          <el-button type="text" class="mfb-edit-form-key" @click="formKeyEdited = true">{{text(\'edit form key\')}}</el-button>\n        </div>\n        <el-form-item v-else :label="text(\'form key\')">\n          <el-input v-model="element.formKey" />\n        </el-form-item>\n      </config-section>\n      <config-section v-if="typeof element.description !== \'undefined\'" :title="text(\'description (help text)\')" :switchable="true" v-model="element.description.enabled">\n        <el-form-item>\n          <el-input v-model="element.description.text" type="textarea" :rows="2" />\n        </el-form-item>\n      </config-section>\n    </div>'
 };
 module.exports = exports['default'];
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -464,7 +502,7 @@ exports.default = {
 module.exports = exports['default'];
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -476,15 +514,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _vuedraggable = __webpack_require__(9);
+var _vuedraggable = __webpack_require__(10);
 
 var _vuedraggable2 = _interopRequireDefault(_vuedraggable);
 
-var _faArrowsAlt = __webpack_require__(11);
+var _faArrowsAlt = __webpack_require__(12);
 
 var _faArrowsAlt2 = _interopRequireDefault(_faArrowsAlt);
 
-var _vuex = __webpack_require__(12);
+var _vuex = __webpack_require__(13);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -583,12 +621,12 @@ exports.default = {
       }
     }
   },
-  template: '\n    <div class="mfb-options-editor">\n      <el-button size="small" @click="addOption" class="mfb-add-option">{{text(\'add option\')}}</el-button>\n      <Draggable\n        v-model="opts"\n        element="ul"\n        class="mfb-options"\n        :options="{\n          handle: \'.mfb-option-handle\',\n          forceFallback: true,\n          fallbackOnBody: true\n        }"\n        @start="dragStart"\n        @end="dragEnd"\n        >\n        <li v-for="(option, index) in opts" :key="index" class="mfb-option">\n          <span class="mfb-option-handle">\n            <fa-icon :icon="faArrowsAlt"/>\n          </span>\n          <el-switch v-model="option.default" @change="setDefault(index, $event)" on-text="" off-text="" />\n          <el-input v-model="option.value" :placeholder="text(\'option value\')" size="small" />\n          <el-input v-model="option.label" :placeholder="text(\'option label\')" size="small" />\n          <el-button type="text" :icon="windowWidth < DELETE_BUTTON_BREAKPOINT ? \'delete\' : null" class="mfb-remove-option" size="small"\n            :disabled="opts.length <= 1" @click="removeOption(index)">{{windowWidth >= DELETE_BUTTON_BREAKPOINT ? text(\'remove option\') : \'\'}}</el-button>\n        </li>\n      </Draggable>\n    </div>\n  '
+  template: '\n    <div class="mfb-options-editor">\n      <Draggable\n        v-model="opts"\n        element="ul"\n        class="mfb-options"\n        :options="{\n          handle: \'.mfb-option-handle\',\n          forceFallback: true,\n          fallbackOnBody: true\n        }"\n        @start="dragStart"\n        @end="dragEnd"\n        >\n        <li v-for="(option, index) in opts" :key="index" class="mfb-option">\n          <span class="mfb-option-handle">\n            <fa-icon :icon="faArrowsAlt"/>\n          </span>\n          <el-switch v-model="option.default" @change="setDefault(index, $event)" on-text="" off-text="" />\n          <el-input v-model="option.value" :placeholder="text(\'option value\')" size="small" />\n          <el-input v-model="option.label" :placeholder="text(\'option label\')" size="small" />\n          <el-button type="text" :icon="windowWidth < DELETE_BUTTON_BREAKPOINT ? \'delete\' : null" class="mfb-remove-option" size="small"\n            :disabled="opts.length <= 1" @click="removeOption(index)">{{windowWidth >= DELETE_BUTTON_BREAKPOINT ? text(\'remove option\') : \'\'}}</el-button>\n        </li>\n      </Draggable>\n      <el-button size="small" @click="addOption" class="mfb-add-option">{{text(\'add option\')}}</el-button>\n    </div>\n  '
 };
 module.exports = exports['default'];
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -954,7 +992,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
   }
 
   if (true) {
-    var Sortable = __webpack_require__(10);
+    var Sortable = __webpack_require__(11);
     module.exports = buildDraggable(Sortable);
   } else if (typeof define == "function" && define.amd) {
     define(['sortablejs'], function (Sortable) {
@@ -967,7 +1005,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 })();
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
@@ -2517,13 +2555,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/**!
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = { prefix: 'fas', iconName: 'arrows-alt', icon: [512, 512, [], "f0b2", "M352.201 425.775l-79.196 79.196c-9.373 9.373-24.568 9.373-33.941 0l-79.196-79.196c-15.119-15.119-4.411-40.971 16.971-40.97h51.162L228 284H127.196v51.162c0 21.382-25.851 32.09-40.971 16.971L7.029 272.937c-9.373-9.373-9.373-24.569 0-33.941L86.225 159.8c15.119-15.119 40.971-4.411 40.971 16.971V228H228V127.196h-51.23c-21.382 0-32.09-25.851-16.971-40.971l79.196-79.196c9.373-9.373 24.568-9.373 33.941 0l79.196 79.196c15.119 15.119 4.411 40.971-16.971 40.971h-51.162V228h100.804v-51.162c0-21.382 25.851-32.09 40.97-16.971l79.196 79.196c9.373 9.373 9.373 24.569 0 33.941L425.773 352.2c-15.119 15.119-40.971 4.411-40.97-16.971V284H284v100.804h51.23c21.382 0 32.09 25.851 16.971 40.971z"] };
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3337,7 +3375,7 @@ var index_esm = {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3393,7 +3431,7 @@ exports.default = {
 module.exports = exports['default'];
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3403,7 +3441,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _vue = __webpack_require__(15);
+var _vue = __webpack_require__(16);
 
 var _vue2 = _interopRequireDefault(_vue);
 
@@ -3437,19 +3475,19 @@ exports.default = {
 module.exports = exports['default'];
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = campaignion_vue.Vue;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

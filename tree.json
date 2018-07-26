@@ -1,0 +1,92 @@
+{
+  "tree": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [],
+            "id": 6,
+            "type": "markup",
+            "label": "New markup",
+            "formKey": "markup_0",
+            "textFormat": "plain_text",
+            "value": "<p><strong>New HTML Markup</strong></p>\n\n<p>Enter any text supported by available text formats.</p>\n"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "type": "radios",
+                "label": "New radios",
+                "id": 5,
+                "formKey": "radios_2",
+                "description": {
+                  "text": "",
+                  "enabled": false
+                },
+                "labelDisplay": {
+                  "options": [
+                    {
+                      "value": "before",
+                      "label": "Above"
+                    },
+                    {
+                      "value": "inline",
+                      "label": "Inline"
+                    },
+                    {
+                      "value": "none",
+                      "label": "None"
+                    }
+                  ],
+                  "value": "before"
+                },
+                "required": false,
+                "private": false,
+                "wrapperCls": "",
+                "options": [
+                  {
+                    "value": "1",
+                    "label": "One",
+                    "default": false
+                  },
+                  {
+                    "value": "2",
+                    "label": "Two",
+                    "default": false
+                  },
+                  {
+                    "value": "3",
+                    "label": "Three",
+                    "default": true
+                  }
+                ],
+                "customOption": false,
+                "customOptionLabel": "Other..."
+              }
+            ],
+            "type": "fieldset",
+            "label": "my fieldset",
+            "id": 4
+          },
+          {
+            "id": 8,
+            "children": [],
+            "type": "markup",
+            "label": "New markup",
+            "formKey": "markup_1",
+            "textFormat": "full_html_with_editor",
+            "value": "<p><strong>New HTML Markup</strong></p>\n\n<p>Enter any text supported by available text formats.</p>"
+          }
+        ],
+        "type": "page",
+        "label": "My first real page",
+        "id": 1,
+        "formKey": "page_0",
+        "wrapperCls": ""
+      }
+    ],
+    "type": "root",
+    "id": 0
+  }
+}

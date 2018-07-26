@@ -12,8 +12,13 @@ window.Drupal = {
         {name: 'generic', label: 'Generic fields'}
       ],
       endpoints: {
-        tree: 'http://localhost:8081/tree'
-      }
+        tree: 'https://mayakokits.github.io/formbuilder-demo/tree.json',
+        filterText: 'https://mayakokits.github.io/formbuilder-demo/filter-text.html'
+      },
+      allowedTextFormats: [
+        {value: 'full_html_with_editor', label: 'Full HTML with editor', wysiwyg: true},
+        {value: 'plain_text', label: 'Plain text'}
+      ]
     }
   },
 
