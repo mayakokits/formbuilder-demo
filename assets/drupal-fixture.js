@@ -13,7 +13,7 @@ window.Drupal = {
       ],
       endpoints: {
         tree: 'https://mayakokits.github.io/formbuilder-demo/tree.json',
-        filterText: 'http://test.mayakokits.com/form-builder-filter-text.php'
+        filterText: 'https://test.mayakokits.com/form-builder-filter-text.php'
       },
       allowedTextFormats: [
         {value: 'full_html_with_editor', label: 'Full HTML with editor', wysiwyg: true},
