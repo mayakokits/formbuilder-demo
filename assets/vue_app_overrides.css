@@ -1229,9 +1229,6 @@
   border-color: #18CBDB;
   box-shadow: 0 0 3px #1AE3F2;
 }
-.page-node-wizard-form {
-  overflow: hidden;
-}
 .page-node-wizard-form .el-select-dropdown__item {
   color: #666;
 }
